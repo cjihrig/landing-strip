@@ -1,0 +1,28 @@
+{
+  "name": "landing-strip",
+  "version": "1.0.0",
+  "description": "slack bot that notifies you when new versions of a module land",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/continuationlabs/landing-strip.git"
+  },
+  "dependencies": {
+    "wreck": "5.x.x",
+    "npm-publish-stream": "1.x.x"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "slack",
+    "bot",
+    "publish"
+  ],
+  "author": "Continuation Labs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/continuationlabs/landing-strip/issues"
+  }
+}
