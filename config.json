@@ -1,9 +1,0 @@
-{
-  "username": "your_bot_username",
-  "emoji": ":your_bot_emoji:",
-  "hook": "your_full_hook_url",
-  "filter": [
-    "list of packages to show in results",
-    "remove filter completely to not filter results"
-  ]
-}

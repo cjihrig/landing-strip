@@ -1,6 +1,6 @@
 {
   "name": "landing-strip",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "slack bot that notifies you when new versions of a module land",
   "main": "index.js",
   "repository": {
@@ -8,8 +8,9 @@
     "url": "https://github.com/continuationlabs/landing-strip.git"
   },
   "dependencies": {
-    "wreck": "5.x.x",
-    "npm-publish-stream": "1.x.x"
+    "hoek": "2.x.x",
+    "npm-publish-stream": "1.x.x",
+    "wreck": "5.x.x"
   },
   "devDependencies": {},
   "scripts": {
