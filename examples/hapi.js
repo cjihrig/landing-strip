@@ -1,5 +1,5 @@
 var Hoek = require('hoek');
-var LandingStrip = require('../');
+var LandingStrip = require('../lib');
 
 LandingStrip({
   username: 'hapijs-bot',

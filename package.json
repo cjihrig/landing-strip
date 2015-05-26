@@ -2,7 +2,7 @@
   "name": "landing-strip",
   "version": "2.0.0",
   "description": "slack bot that notifies you when new versions of a module land",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/continuationlabs/landing-strip.git"
