@@ -1,5 +1,10 @@
 # landing-strip
 
+[![Current Version](https://img.shields.io/npm/v/landing-strip.svg)](https://www.npmjs.org/package/landing-strip)
+[![Build Status via Travis CI](https://travis-ci.org/continuationlabs/landing-strip.svg?branch=master)](https://travis-ci.org/continuationlabs/landing-strip)
+![Dependencies](http://img.shields.io/david/continuationlabs/landing-strip.svg)
+![devDependencies](http://img.shields.io/david/dev/continuationlabs/landing-strip.svg)
+
 Slack bot that notifies you when new versions of a module land in npm. Creating a landing strip is as simple as running a file from the `examples` directory. For example, to receive notifications when any of the [hapi](https://github.com/hapijs) repos are published to npm, simply run `node examples/hapi`.
 
 ## `LandingStrip(options)`
