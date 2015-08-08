@@ -2,6 +2,7 @@
   "name": "landing-strip",
   "version": "2.0.1",
   "description": "slack bot that notifies you when new versions of a module land",
+  "author": "Continuation Labs <contact@continuation.io> (http://continuation.io/)",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -10,21 +11,21 @@
   "dependencies": {
     "hoek": "2.x.x",
     "npm-publish-stream": "1.x.x",
-    "wreck": "5.x.x"
+    "wreck": "6.x.x"
   },
   "devDependencies": {
     "code": "1.x.x",
-    "lab": "5.x.x"
+    "lab": "5.x.x",
+    "semistandard": "7.x.x"
   },
   "scripts": {
-    "test": "node node_modules/.bin/lab -v -t 100 -a code -m 10000"
+    "test": "semistandard && lab -v -t 100 -a code -m 10000"
   },
   "keywords": [
     "slack",
     "bot",
     "publish"
   ],
-  "author": "Continuation Labs",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/continuationlabs/landing-strip/issues"

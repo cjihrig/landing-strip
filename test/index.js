@@ -11,9 +11,8 @@ var it = lab.it;
 
 var wreckPost = Wreck.constructor.prototype.post;
 
-
-describe('LandingStrip', function() {
-  lab.beforeEach(function(done) {
+describe('LandingStrip', function () {
+  lab.beforeEach(function (done) {
     // Patch NpmPublishStream.prototype._read so that our tests do not rely
     // on the npm registry
     var fixture = {
@@ -36,19 +35,19 @@ describe('LandingStrip', function() {
       }
     };
 
-    NpmPublishStream.prototype._read = function() {
+    NpmPublishStream.prototype._read = function () {
       this.push(fixture);
-      NpmPublishStream.prototype._read = function() {};
+      NpmPublishStream.prototype._read = function () {};
     };
     Wreck.constructor.prototype.post = wreckPost;
     done();
   });
 
-  it('filtered publish events are successfully posted to Slack', function(done) {
+  it('filtered publish events are successfully posted to Slack', function (done) {
     var startTime = new Date(2000, 0);
 
-    Wreck.constructor.prototype.post = function(uri, options, callback) {
-      function cb(err, response, payload) {
+    Wreck.constructor.prototype.post = function (uri, options, callback) {
+      function cb (err, response, payload) {
         callback(err, response, payload);
         done();
       }
@@ -61,10 +60,11 @@ describe('LandingStrip', function() {
       emoji: ':emo:',
       hook: 'url',
       startTime: startTime,
-      onError: function(err) {
+      onError: function (err) {
+        expect(err).to.not.exist();
         expect(false).to.equal(true);
       },
-      filter: function(data) {
+      filter: function (data) {
         expect(data.doc.repository.url).to.equal('repo-url');
         return true;
       }
@@ -74,9 +74,9 @@ describe('LandingStrip', function() {
     expect(stream._lastRefreshTime).to.equal(startTime);
   });
 
-  it('handles errors from Wreck', function(done) {
-    Wreck.constructor.prototype.post = function(uri, options, callback) {
-      function cb(err, response, payload) {
+  it('handles errors from Wreck', function (done) {
+    Wreck.constructor.prototype.post = function (uri, options, callback) {
+      function cb (err, response, payload) {
         callback(err, response, payload);
         done();
       }
@@ -84,20 +84,20 @@ describe('LandingStrip', function() {
       cb(new Error('foo'), {statusCode: 200}, '');
     };
 
-    var stream = LandingStrip({
+    LandingStrip({
       username: 'user',
       emoji: ':emo:',
       hook: 'url',
-      onError: function(err) {
+      onError: function (err) {
         expect(err.message).to.equal('foo');
       },
       filter: ['fixture']
     });
   });
 
-  it('handles non-200 response codes', function(done) {
-    Wreck.constructor.prototype.post = function(uri, options, callback) {
-      function cb(err, response, payload) {
+  it('handles non-200 response codes', function (done) {
+    Wreck.constructor.prototype.post = function (uri, options, callback) {
+      function cb (err, response, payload) {
         callback(err, response, payload);
         done();
       }
@@ -105,59 +105,61 @@ describe('LandingStrip', function() {
       cb(null, {statusCode: 400}, new Error('foo'));
     };
 
-    var stream = LandingStrip({
+    LandingStrip({
       username: 'user',
       emoji: ':emo:',
       hook: 'url',
-      onError: function(err) {
+      onError: function (err) {
         expect(err.message).to.equal('foo');
       }
     });
   });
 
-  it('does nothing if published module is not in filter array', function(done) {
-    Wreck.constructor.prototype.post = function(uri, options, callback) {
+  it('does nothing if published module is not in filter array', function (done) {
+    Wreck.constructor.prototype.post = function (uri, options, callback) {
       expect(false).to.equal(true);
     };
 
-    var stream = LandingStrip({
+    LandingStrip({
       username: 'user',
       emoji: ':emo:',
       hook: 'url',
-      onError: function(err) {
+      onError: function (err) {
+        expect(err).to.not.exist();
         expect(false).to.equal(true);
       },
       filter: []
     });
 
-    setTimeout(function() {
+    setTimeout(function () {
       done();
     }, 1000);
   });
 
-  it('does nothing if filter function returns false', function(done) {
-    Wreck.constructor.prototype.post = function(uri, options, callback) {
+  it('does nothing if filter function returns false', function (done) {
+    Wreck.constructor.prototype.post = function (uri, options, callback) {
       expect(false).to.equal(true);
     };
 
-    var stream = LandingStrip({
+    LandingStrip({
       username: 'user',
       emoji: ':emo:',
       hook: 'url',
-      onError: function(err) {
+      onError: function (err) {
+        expect(err).to.not.exist();
         expect(false).to.equal(true);
       },
-      filter: function() {
+      filter: function () {
         return false;
       }
     });
 
-    setTimeout(function() {
+    setTimeout(function () {
       done();
     }, 1000);
   });
 
-  it('adds a noop error handler by default', function(done) {
+  it('adds a noop error handler by default', function (done) {
     var stream = LandingStrip({
       username: 'user',
       emoji: ':emo:',
@@ -166,41 +168,41 @@ describe('LandingStrip', function() {
 
     stream.emit('error', new Error('foo'));
 
-    setTimeout(function() {
+    setTimeout(function () {
       done();
     }, 1000);
   });
 
-  it('requires a properly formatted options object', function(done) {
-    expect(function() {
+  it('requires a properly formatted options object', function (done) {
+    expect(function () {
       LandingStrip();
     }).throw('options must be an object');
 
-    expect(function() {
+    expect(function () {
       LandingStrip(null);
     }).throw('options must be an object');
 
-    expect(function() {
+    expect(function () {
       LandingStrip({
         hook: null
       });
     }).throw('hook must be a string');
 
-    expect(function() {
+    expect(function () {
       LandingStrip({
         hook: 'foo',
         startTime: null
       });
     }).throw('startTime must be a Date');
 
-    expect(function() {
+    expect(function () {
       LandingStrip({
         hook: 'foo',
         onError: null
       });
     }).throw('onError must be a function');
 
-    expect(function() {
+    expect(function () {
       LandingStrip({
         hook: 'foo',
         filter: null
