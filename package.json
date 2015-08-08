@@ -1,6 +1,6 @@
 {
   "name": "landing-strip",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "slack bot that notifies you when new versions of a module land",
   "author": "Continuation Labs <contact@continuation.io> (http://continuation.io/)",
   "main": "lib/index.js",
