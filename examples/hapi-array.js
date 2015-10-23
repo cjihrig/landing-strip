@@ -1,3 +1,4 @@
+'use strict';
 var LandingStrip = require('../lib');
 
 LandingStrip({

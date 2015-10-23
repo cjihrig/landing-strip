@@ -1,3 +1,4 @@
+'use strict';
 var Code = require('code');
 var Lab = require('lab');
 var NpmPublishStream = require('npm-publish-stream');
